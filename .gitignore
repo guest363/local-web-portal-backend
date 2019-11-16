@@ -1,0 +1,10 @@
+node_modules/
+dist/
+data/
+npm-debug.log
+.cache
+db
+WebPortal.rar
+DataBaseBackUP/
+moduls.zip
+logs
