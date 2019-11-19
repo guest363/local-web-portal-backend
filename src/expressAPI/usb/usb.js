@@ -1,7 +1,7 @@
 const { Mongo, MongoUrl } = require('../../variables');
 const ObjectId = require('mongodb').ObjectId;
 const chunker = require('./chunker');
-const auth = require('../auth/auth');
+const auth = require('../../moduleAuth/socket');
 
 /* 
     table [mountUSB, whiteListUSB, alertUSB]

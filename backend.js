@@ -1,35 +1,51 @@
 var forever = require('forever-monitor');
 
-var child = new (forever.Monitor)('./src/express.js', {
+const express = new (forever.Monitor)('./src/express.js', {
     max: 3,
     silent: true,
     args: [],
-    logFile: './logs/log',
-    outFile: './logs/out',
-    errFile: './logs/err'
+    logFile: './logs/express-log',
+    outFile: './logs/express-out',
+    errFile: './logs/express-err'
 });
 
-child.on('watch:restart', function (info) {
-    console.error('Restarting script because ' + info.file + ' changed');
+const ping = new (forever.Monitor)('./src/moduleMonitoring/nativPing/ping.js', {
+    max: 3,
+    silent: true,
+    args: [],
+    logFile: './logs/ping-log',
+    outFile: './logs/ping-out',
+    errFile: './logs/ping-err'
 });
 
-child.on('restart', function () {
-    console.error('Forever restarting script for ' + child.times + ' time');
-});
+const foreverActionsDefault = name => {
+    name.on('watch:restart', function (info) {
+        console.error('Restarting script because ' + info.file + ' changed');
+    });
 
-child.on('exit:code', function (code) {
-    console.log('express.js has exited after 3 restarts');
-    child.stop();
-});
+    name.on('restart', function () {
+        console.error('Forever restarting script for ' + express.times + ' time');
+    });
+
+    name.on('exit:code', function (code) {
+        console.log(`express.js has exited after 3 restarts the code: ${code}`);
+        name.stop();
+    });
+};
+const processStop = () => {
+    console.log('forever stop!');
+    express.stop();
+    ping.stop();
+    process.exit(0);
+};
+foreverActionsDefault(express);
+foreverActionsDefault(ping);
 
 process.on('SIGINT', function () {
-    console.log('forever stop!');
-    child.stop();
-    process.exit(0);
+    processStop();
 });
 process.on('SIGTERM', function () {
-    console.log('forever stop!');
-    child.stop();
-    process.exit(0);
+    processStop();
 });
-child.start();
+express.start();
+ping.start();

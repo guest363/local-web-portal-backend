@@ -6,7 +6,7 @@ services:
       - NODE_ENV=production
     volumes:
       - .:/app
-      - ../frontend/dist:/frontend/dist
+      - ../frontend/dist:/WebPortal/frontend/dist
     ports:
       - "3000:3000"
     depends_on:

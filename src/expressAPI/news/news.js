@@ -1,5 +1,5 @@
 const newsModel = require("../../schems/news.js");
-const auth = require('../auth/auth');
+const auth = require('../../moduleAuth/socket');
 
 async function news(req, socket) {
     const { action = '', msg = '' } = req;
