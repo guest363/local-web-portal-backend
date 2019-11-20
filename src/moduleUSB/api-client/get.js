@@ -28,5 +28,5 @@ module.exports = async (req, socket) => {
                 if (err) return socket.emit('ERROR', err);
                 socket.emit(table, { chunk: result, pages: pages });
             });
-    };
+    }
 }

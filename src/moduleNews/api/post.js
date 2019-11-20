@@ -5,7 +5,7 @@ module.exports = async (msg, socket, token, authErrorMsg) => {
     const authResult = await auth(token);
     if (!authResult) {
         return socket.emit('RESULT', authErrorMsg);
-    };
+    }
     const query = { '_id': msg['_id'] }
     const doc = await newsModel.findOne(query);
     try {

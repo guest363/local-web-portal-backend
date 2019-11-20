@@ -14,7 +14,7 @@ module.exports = async (req, socket, token, authErrorMsg) => {
     const authResult = await auth(token);
     if (!authResult) {
         return socket.emit('ERROR', authErrorMsg);
-    };
+    }
 
     /* Динамическая ссылка на коллекции */
     const collection = tablesLinker[table];

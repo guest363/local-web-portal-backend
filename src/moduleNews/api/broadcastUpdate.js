@@ -7,4 +7,4 @@ module.exports = (socket) => {
             if (err) return socket.emit('ERROR', err);
             return socket.broadcast.emit('RETURN_ALL_NEWS', result);
         });
-};
+}
