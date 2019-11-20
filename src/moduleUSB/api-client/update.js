@@ -18,7 +18,7 @@ module.exports = async (req, socket, token, authErrorMsg) => {
     };
 
     await whiteModel.updateOne(query, { $set: { 'docNumber': docNumber } });
-    await updateAll(query, 'serial', msg.serial);
-    await updateAll(query, 'regNumber', regNumber);
+    updateAll(query, 'serial', msg.serial);
+    updateAll(query, 'regNumber', regNumber);
     socket.emit('RESULT', 'Данные о носителе обнвлены');
 };

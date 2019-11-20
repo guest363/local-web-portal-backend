@@ -2,7 +2,7 @@ const wikiModel = require("../../schems/wiki");
 
 module.exports = (req, network) => {
     const tagsArray = [];
-    for (key in req.query) {
+    for (let key in req.query) {
         tagsArray.push(req.query[key]);
     }
     wikiModel.find().byTag(tagsArray).exec(
