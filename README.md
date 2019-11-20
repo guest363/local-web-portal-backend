@@ -1,5 +1,5 @@
 # Бекенд локального сайта
-Скрипты на udev в отдльном [репозитории](https:\\github.com\guest363)
+Скрипты на udev в отдльном [репозитории](https://github.com/guest363/linux-udev-mount-script)
 
 # Требования:
 Есть два варианта использования:
@@ -10,7 +10,7 @@
     * NodeJS >= 8.9
 
 # Запуск
-Проект сотсоит из двух частей [frontend](https:\\github.com\guest363) и этот репозиторий с beckend. 
+Проект сотсоит из двух частей [frontend](https://github.com/guest363/local-web-portal-frontend) и этот репозиторий с beckend. 
 * Нужно скачать оба репозитория и положить их на один уровень вложенности в папках:
 RootFolder
     |- frontend
