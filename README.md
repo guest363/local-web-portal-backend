@@ -10,16 +10,20 @@
     * NodeJS >= 8.9
 
 # Запуск
-Проект сотсоит из двух частей [frontend](https://github.com/guest363/local-web-portal-frontend) и этот репозиторий с beckend. 
-* Нужно скачать оба репозитория и положить их на один уровень вложенности в папках:
-RootFolder
-    |- frontend
-    |- backend (этот репозиторий
+Проект состоит из двух частей: 
+* [frontend](https://github.com/guest363/local-web-portal-frontend) 
+* backend - этот репозиторий. 
 
-* В папке backend выполнить команду ''' npm install '''
-* Если есть Docker:
+## Шаги
+1. Нужно скачать оба репозитория и положить их на один уровень вложенности в папках:
+    * RootFolder
+        * |- frontend
+        * |- backend (этот репозиторий
+
+1. В папке backend выполнить команду ''' npm install '''
+1. Если есть Docker:
     * выполнить команду ''' docker-compose up '''
-* Без Docker:
+1. Без Docker:
     * В файле ./src/variables.js изменить константы:
         * dbRootName имя для свой базы, по умолчанию Tyumen
         * dbPort порт MongoDB, по умолчанию 27017 (default для MongoDB)
