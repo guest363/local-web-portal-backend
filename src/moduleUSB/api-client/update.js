@@ -11,10 +11,10 @@ module.exports = async (req, socket, token, authErrorMsg) => {
     if (!authResult) {
         return socket.emit('ERROR', authErrorMsg);
     };
-    const updateAll = (query, type, val) => {
-        mountModel.updateMany(query, { $set: { [type]: val } }, { multi: true });
-        alertModel.updateMany(query, { $set: { [type]: val } }, { multi: true });
-        whiteModel.updateOne(query, { $set: { [type]: val } });
+    const updateAll = (req, type, val) => {
+        mountModel.updateMany(req, { $set: { [type]: val } }, { multi: true });
+        alertModel.updateMany(req, { $set: { [type]: val } }, { multi: true });
+        whiteModel.updateOne(req, { $set: { [type]: val } });
     };
 
     await whiteModel.updateOne(query, { $set: { 'docNumber': docNumber } });

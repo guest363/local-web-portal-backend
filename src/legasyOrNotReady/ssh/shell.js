@@ -1,5 +1,5 @@
 
-const SSHClient = require('ssh2').Client;
+/* const SSHClient = require('ssh2').Client; */
 /**
  * @description Shell по SSH
  * @param {Object} msg 
@@ -8,7 +8,7 @@ const SSHClient = require('ssh2').Client;
  * @param {String} msg.cmd
  * @param {*} socket 
  */
-const sshAPI = (msg, socket) => {
+/* const sshAPI = (msg, socket) => {
     const { ip, password, cmd } = msg;
     const conn = new SSHClient();
     conn.on('ready', function () {
@@ -38,4 +38,4 @@ const sshAPI = (msg, socket) => {
     });
 }
 
-module.exports = sshAPI;
+module.exports = sshAPI; */
