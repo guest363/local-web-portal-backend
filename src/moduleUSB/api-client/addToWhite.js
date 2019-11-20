@@ -14,4 +14,4 @@ module.exports = async (req, socket, token, authErrorMsg) => {
             return whiteModel.insertOne(msg);
         }
     });
-};
+}

@@ -1,6 +1,7 @@
 const newsModel = require("../schems/news");
 const auth = require('../../moduleAuth/socket');
 const broadcastUpdate = require('./broadcastUpdate');
+
 module.exports = async (msg, socket, token, authErrorMsg) => {
     const authResult = await auth(token);
     if (!authResult) {
@@ -13,4 +14,4 @@ module.exports = async (msg, socket, token, authErrorMsg) => {
             /* Обновить список новостей на клиентах. */
             return broadcastUpdate(socket);
         })
-};
+}

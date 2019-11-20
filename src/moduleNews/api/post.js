@@ -21,4 +21,4 @@ module.exports = async (msg, socket, token, authErrorMsg) => {
     } catch (err) {
         return socket.emit('ERROR', err);
     }
-};
+}

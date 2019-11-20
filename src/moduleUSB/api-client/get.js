@@ -29,4 +29,4 @@ module.exports = async (req, socket) => {
                 socket.emit(table, { chunk: result, pages: pages });
             });
     };
-};
+}

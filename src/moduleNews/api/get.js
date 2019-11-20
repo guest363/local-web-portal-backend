@@ -9,4 +9,4 @@ module.exports = (msg, socket) => {
                 return socket.emit('RETURN_NEWS', result);
             }
         )
-};
+}

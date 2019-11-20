@@ -11,8 +11,6 @@ PersonRouter.route('/person')
     .get(require('./api/get'))
     .post(isAuth, require('./api/post'))
     .delete(isAuth, require('./api/delete'));
-;
-
 
 
 module.exports = PersonRouter;

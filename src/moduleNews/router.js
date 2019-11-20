@@ -11,6 +11,6 @@ function news(req, socket) {
     if (!actions.hasOwnProperty(action))
         return socket.emit('ERROR', 'Такого метогда взаимодействия с новостями не существует!');
     return actions[action](msg, socket, token, authErrorMsg);
-}
+};
 
 module.exports = news;

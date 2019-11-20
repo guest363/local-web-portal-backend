@@ -55,7 +55,7 @@ function usb(msg, res, io) {
                 objToDB.docNumber = result[0].docNumber;
                 objToDB.serial = result[0].serial;
                 objToDB.hostid = result[0].hostid;
-            };
+            }
         });
     }
 
@@ -87,7 +87,7 @@ function usb(msg, res, io) {
             if (result.length === 0) {
                 mount.insertOne(objToDB)
                 io.emit('MOUNTING_USB', msg);
-            };
+            }
             checkUsb();
         });
     };

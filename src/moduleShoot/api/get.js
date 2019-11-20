@@ -10,4 +10,4 @@ module.exports = (msg, socket) => {
                 return socket.emit('shootsHistory', result);
             }
         )
-};
+}

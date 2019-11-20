@@ -25,4 +25,4 @@ module.exports = async (req, socket, token, authErrorMsg) => {
         if (err) return socket.emit('ERROR', err);
         socket.emit('RESULT', 'Носитель удален из базы');
     })
-};
+}

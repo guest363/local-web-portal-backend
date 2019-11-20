@@ -10,6 +10,6 @@ function shoot(req, socket) {
     if (!actions.hasOwnProperty(action))
         return socket.emit('ERROR', 'Такого метогда взаимодействия с модулем стрельб не существует!');
     return actions[action](msg, socket, token, authErrorMsg);
-}
+};
 
 module.exports = shoot;

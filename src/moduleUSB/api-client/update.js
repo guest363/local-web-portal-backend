@@ -21,4 +21,4 @@ module.exports = async (req, socket, token, authErrorMsg) => {
     updateAll(query, 'serial', msg.serial);
     updateAll(query, 'regNumber', regNumber);
     socket.emit('RESULT', 'Данные о носителе обнвлены');
-};
+}
