@@ -1,15 +1,16 @@
 /* Отдельно имя, фамилия и отчество и функции которые выдают в коротком и длинном виде */
-function shoot(req, socket) {
+function news(req, socket) {
     const { action = '', msg = '', token = '' } = req;
     const authErrorMsg = `Только авторизованные пользователи могут совершать это действие`;
     const actions = {
         get: require('./api/get'),
-        set: require('./api/post'),
+        post: require('./api/post'),
         delete: require('./api/delete'),
+        getAll: require('./api/getAll'),
     };
     if (!actions.hasOwnProperty(action))
-        return socket.emit('ERROR', 'Такого метогда взаимодействия с модулем стрельб не существует!');
+        return socket.emit('ERROR', 'Такого метогда взаимодействия с новостями не существует!');
     return actions[action](msg, socket, token, authErrorMsg);
 }
 
-module.exports = shoot;
+module.exports = news;

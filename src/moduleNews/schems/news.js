@@ -1,4 +1,4 @@
-const { mongoose } = require('../variables.js');
+const { mongoose } = require('../../variables.js');
 const Schema = mongoose.Schema;
 /* Schema */
 const newsSchema = new Schema({

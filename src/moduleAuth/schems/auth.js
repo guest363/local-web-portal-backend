@@ -6,8 +6,8 @@ const userSchema = new Schema({
     displayName: String,
     login: {
         type: String,
-        required: 'login обязателен',
-        unique: 'такой login уже занят'
+        required: true,
+        unique: true
     },
     passwordHash: String,
     role: {

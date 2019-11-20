@@ -7,7 +7,7 @@ module.exports = (msg, socket) => {
         .exec(
             function (err, result) {
                 if (err) return socket.emit('ERROR', err);
-                socket.emit('shootsHistory', result);
+                return socket.emit('shootsHistory', result);
             }
         )
 };

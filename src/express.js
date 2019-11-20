@@ -29,8 +29,8 @@ require('./routes/index.js')(app, io);
 
 //-------------- API для работы с БД через Socket --------------
 const shoot = require('./moduleShoot/router');
-const usb = require('./expressAPI/usb/usb');
-const news = require('./expressAPI/news/news');
+const usb = require('./moduleUSB/router');
+const news = require('./moduleNews/router');
 //------------------------------------------------
 
 // -------- Настройка сервера -------------

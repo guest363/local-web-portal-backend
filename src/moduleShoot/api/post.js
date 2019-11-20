@@ -1,16 +1,14 @@
 const shootModel = require("../schems/shoot");
 const auth = require('../../moduleAuth/socket');
 
-module.exports = async (msg, socket, authErrorMsg) => {
-
+module.exports = async (msg, socket, token, authErrorMsg) => {
     const authResult = await auth(token);
     if (!authResult) {
-        socket.emit('RESULT', authErrorMsg);
-        return client.close();
+        return socket.emit('RESULT', authErrorMsg);
     };
     const instans = new shootModel(msg);
-    instans.save(function (err) {
+    instans.save(function (err, result) {
         if (err) return socket.emit('ERROR', err);
-        socket.emit('RESULT', result);
+        return socket.emit('RESULT', result);
     });
 };
