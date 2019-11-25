@@ -1,8 +1,8 @@
-const newsModel = require("../schems/news");
-const auth = require('../../moduleAuth/socket');
+const newsModel = require("../schems/newsModel");
+const socketAuth = require('../../moduleAuth/socketAuth');
 const broadcastUpdate = require('./broadcastUpdate');
 module.exports = async (msg, socket, token, authErrorMsg) => {
-    const authResult = await auth(token);
+    const authResult = await socketAuth(token);
     if (!authResult) {
         return socket.emit('RESULT', authErrorMsg);
     }

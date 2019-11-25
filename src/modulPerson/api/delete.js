@@ -1,4 +1,4 @@
-const personModel = require("../schems/persons");
+const personModel = require("../schems/personModel");
 const sendResult = require('./sender');
 
 module.exports = (req, network) => {

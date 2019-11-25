@@ -1,4 +1,4 @@
-const wikiModel = require("../../schems/wiki");
+const wikiModel = require("../../schems/wikiModel");
 
 module.exports = async (req, network) => {
     const article = req.body;
@@ -7,10 +7,19 @@ module.exports = async (req, network) => {
     });
     if (hasDoc === null) {
         const newWikiArticle = new wikiModel(article);
-        newWikiArticle.save();
-        network.send(`Создана новая запись`);
+        try {
+            newWikiArticle.save();
+            network.send(`Создана новая статья`);
+        } catch (error) {
+            network.send(`Ошибка создания статьи`);
+        }
+
     } else {
-        await wikiModel.findOneAndUpdate({ url: article.url }, article);
-        network.send(`Обновлена запись`);
+        try {
+            await wikiModel.findOneAndUpdate({ url: article.url }, article);
+            network.send(`Статья обновлена`);
+        } catch (error) {
+            network.send(`Ошибка обновления статьи`);
+        }
     }
-};
+}

@@ -1,4 +1,4 @@
-const personModel = require("../schems/persons");
+const personModel = require("../schems/personModel");
 
 module.exports = (req, network) => {
     const person = req.query.id;

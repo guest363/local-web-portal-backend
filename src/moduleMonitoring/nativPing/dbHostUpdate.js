@@ -1,4 +1,4 @@
-const pingModel = require("../schems/pingHosts");
+const pingModel = require("../schems/pingModel");
 const strAnalize = require('./stdoutAnalize.js');
 /** @description Обновляет статус хоста в базе
  *  @param {Boolean} status  новый статус

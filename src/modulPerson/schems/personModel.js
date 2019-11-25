@@ -31,5 +31,5 @@ personSchema.query.all = function () {
 };
 
 /* Model */
-let personModel = mongoose.model('personModel', personSchema, 'persone');
+const personModel = mongoose.model('personModel', personSchema, 'persone');
 module.exports = personModel;

@@ -1,4 +1,4 @@
-const tagModel = require("../../schems/tag");
+const tagModel = require("../../schems/tagModel");
 
 module.exports = async (req, network) => {
     const tag = req.body;

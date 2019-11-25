@@ -1,4 +1,4 @@
-const wikiModel = require("../../schems/wiki");
+const wikiModel = require("../../schems/wikiModel");
 
 module.exports = (req, network) => {
     const tagsArray = [];

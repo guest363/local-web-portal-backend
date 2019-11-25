@@ -1,9 +1,9 @@
-const whiteModel = require("../schems/white");
-const auth = require('../../moduleAuth/socket');
+const whiteModel = require("../schems/whiteModel");
+const socketAuth = require('../../moduleAuth/socketAuth');
 
 module.exports = async (req, socket, token, authErrorMsg) => {
     const { msg } = req;
-    const authResult = await auth(token);
+    const authResult = await socketAuth(token);
     if (!authResult) {
         return socket.emit('ERROR', authErrorMsg);
     }

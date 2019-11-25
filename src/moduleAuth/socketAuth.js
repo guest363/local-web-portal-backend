@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { jwtsecret } = require('../variables');
 
-const auth = token => {
+const socketAuth = token => {
     return jwt.verify(
         token,
         jwtsecret,
@@ -11,4 +11,4 @@ const auth = token => {
     )
 };
 
-module.exports = auth; 
+module.exports = socketAuth; 

@@ -1,5 +1,5 @@
 /* Отдельно имя, фамилия и отчество и функции которые выдают в коротком и длинном виде */
-function shoot(req, socket) {
+function router(req, socket) {
     const { action = '', msg = '', token = '' } = req;
     const authErrorMsg = `Только авторизованные пользователи могут совершать это действие`;
     const actions = {
@@ -12,4 +12,4 @@ function shoot(req, socket) {
     return actions[action](msg, socket, token, authErrorMsg);
 }
 
-module.exports = shoot;
+module.exports = router;

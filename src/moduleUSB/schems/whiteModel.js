@@ -1,6 +1,6 @@
 const { mongoose } = require('../../variables');
 /* Исп базовый тип USB */
-const whiteUSBSchema = require('./usb');
+const whiteUSBSchema = require('./usbSchema');
 
 /* Важно. Чтобы при выдаче можно было обращаться к виртуальным */
 whiteUSBSchema.set('toObject', { virtuals: true });

@@ -1,5 +1,5 @@
 const ping = require('./nativePing');
-const pingModel = require("../schems/pingHosts");
+const pingModel = require("../schems/pingModel");
 
 /** @description Для всех хостов в базе выполняет обновление статуса
  */

@@ -1,4 +1,4 @@
-const newsModel = require("../schems/news");
+const newsModel = require("../schems/newsModel");
 
 module.exports = (msg, socket) => {
     newsModel.find()

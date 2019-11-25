@@ -1,7 +1,13 @@
-const tagModel = require("../../schems/tag");
-const sendResult = require('../sender');
+const tagModel = require("../../schems/tagModel");
 
 module.exports = (req, network) => {
     tagModel.find()
-        .exec((err, result) => sendResult(err, result, network))
+        .exec((err, result) => {
+            if (err) {
+                return network.send(`Ошибка при списка тегов - ${err}`);
+
+            } else {
+                return network.send(result);
+            }
+        });
 };

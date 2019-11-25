@@ -1,13 +1,14 @@
-const alertModel = require("./schems/alert");
-const mountModel = require("./schems/mount");
-const whiteModel = require("./schems/white");
+const alertModel = require("./schems/alertModel");
+const mountModel = require("./schems/mountModel");
+const whiteModel = require("./schems/whiteModel");
 const tablesLinker = {
     'whiteListUSB': whiteModel,
     'alertUSB': alertModel,
-    'mountUSB': mountModel
+    'mountUSB': mountModel,
+    'all': ''
 };
 
-function news(req, socket) {
+function router(req, socket) {
     const { action = '', token = '', table = '' } = req;
     if (!tablesLinker.hasOwnProperty(table)) return socket.emit('ERROR', 'В какой таблице действия?');
 
@@ -23,4 +24,4 @@ function news(req, socket) {
     return actions[action](req, socket, token, authErrorMsg);
 }
 
-module.exports = news;
+module.exports = router;

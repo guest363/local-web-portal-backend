@@ -1,7 +1,7 @@
-const alertModel = require("../schems/alert");
-const mountModel = require("../schems/mount");
-const whiteModel = require("../schems/white");
-const chunker = require('../support/chunker');
+const alertModel = require("../schems/alertModel");
+const mountModel = require("../schems/mountModel");
+const whiteModel = require("../schems/whiteModel");
+const chunker = require('../support/client/chunker');
 const tablesLinker = {
     'whiteListUSB': whiteModel,
     'alertUSB': alertModel,

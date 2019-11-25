@@ -1,106 +1,39 @@
-const alert = require("../schems/alert");
-const mount = require("../schems/mount");
-const white = require("../schems/white");
-
-
+const alertModel = require("../schems/alertModel");
+const mountModel = require("../schems/mountModel");
+const whiteModel = require("../schems/whiteModel");
+const usbObjCreator = require('../support/tk/usbObjCreator');
+const setActualData = require('../support/tk/setActualData');
+const enjectUSB = require('../support/tk/enjectAction');
+const writeToAlertTable = require('../support/tk/writeToAlertTable');
+const writeToMountTable = require('../support/tk/writeToMountTable');
 /* Действия при принятии сообщения от тонкого глиента */
 /* const shutdown = require("../ssh/shutdown.js"); */
 
-function usb(msg, res, io) {
+async function usbTkActions(msg, res, io) {
     // Устройства без серийного номера не попадают в БД
     if (msg.serial === '') return res.send(`true`);
-    let {
-        product = '',
-        manufacture = '',
-        serial = '',
-        hostid = '',
-        event = '',
-        username = '',
-    } = msg;
+    // Если действия отмонтировать USB то короткий путь
+    if (msg.event === 'inject') return await enjectUSB(mountModel, msg, io, res);
 
-    const mountMsg = `---===== Mount USB ====---- \n ${JSON.stringify(msg)}`;
-    const injectMsg = `---===== Enject USB ====---- \n ${JSON.stringify(msg)}`;
 
-    const objToDB = {
-        'mountTime': new Date().toLocaleString("ru"),
-        'hostid': hostid,
-        'hostidSave': hostid,
-        'product': product,
-        'manufacture': manufacture,
-        'serial': serial,
-        'USBnameSave': serial,
-        'username': username.substr(0, 30),
-        'regNumber': 'Внесите регистрационный номер',
-        'docNumber': 'Внесите номер предписания'
-    };
+    const USB = usbObjCreator(msg);
+    const normolizeUSB = await setActualData(whiteModel, USB, { 'USBnameSave': msg.serial });
 
-    /* Запросы на поиск по уникальным полям */
-    const query = {
-        'USBnameSave': serial
-    };
-    /* -------------------------------------*/
-    /**
-     * @description Для вновь примонтированных выставляет правельные,
-     * взятые из уже внесенных, значения для:
-     * Регистрационного номера
-     * Имени хоста
-     * Названию устройства
-     * Так как данные значения виртуальны и не передаются фактически при
-     * монтировании
-     */
-    const setActualDate = () => {
-        white.find(query).toArray(function (err, result) {
-            if (result.length !== 0) {
-                objToDB.regNumber = result[0].regNumber;
-                objToDB.docNumber = result[0].docNumber;
-                objToDB.serial = result[0].serial;
-                objToDB.hostid = result[0].hostid;
-            }
-        });
-    }
-
-    const alertUSB = async () => {
-        res.send(`false`);
-        /*  if (whatType(product) === 'usb') {
-             shutdown(ipOfHost);
-         } */
-        await alert.insertOne(objToDB);
-
-    };
-
-    const checkUsb = function () {
+    const mountUSB = async () => {
+        console.log(`---===== Mount USB ====---- \n ${JSON.stringify(msg)}`);
+        await writeToMountTable(mountModel, normolizeUSB, io);
         try {
-            white.find(query).toArray(function (err, result) {
-                if (result === null || result.length !== 0) {
-                    res.send(`true`)
-                } else alertUSB();
-            });
-        } catch (error) {
-            console.error(error);
+            const result = await whiteModel.find({ 'USBnameSave': msg.serial });
+            (result === null || result.length !== 0) ?
+                res.send(`true`) : writeToAlertTable(alertModel, normolizeUSB, res);
+        } catch (err) {
+            console.error(`Ошибка доступа таблице с Белым списком USB \n ${err}`)
         }
-
     };
-    const mountUSB = function () {
-        console.log(mountMsg);
-        setActualDate();
-        mount.find(query).toArray(function (err, result) {
-            if (result.length === 0) {
-                mount.insertOne(objToDB)
-                io.emit('MOUNTING_USB', msg);
-            }
-            checkUsb();
-        });
-    };
-    const enjectUSB = async () => {
-        console.log(injectMsg);
-        await mount.findOneAndDelete(query);
-        res.send(`true`);
-        io.emit('INJECTING_USB', msg);
 
-    }
-
-    (event === 'inject') ? enjectUSB() : mountUSB();
+    /* Примонтировать устройство */
+    mountUSB();
 
 }
 
-module.exports = usb;
+module.exports = usbTkActions;

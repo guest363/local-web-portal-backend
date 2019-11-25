@@ -1,5 +1,5 @@
 const shootModel = require("../schems/shoot");
-const auth = require('../../moduleAuth/socket');
+const auth = require('../../moduleAuth/socketAuth');
 
 module.exports = async (msg, socket, token, authErrorMsg) => {
     const authResult = await auth(token);

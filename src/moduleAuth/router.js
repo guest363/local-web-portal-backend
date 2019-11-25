@@ -1,14 +1,14 @@
 
-const AuthRouter = require('express').Router();
-AuthRouter.route('/user')
+const router = require('express').Router();
+router.route('/user')
     .post(require('./api/createUser'));
-AuthRouter.route('/login')
+router.route('/login')
     .post(require('./api/login'));
 
 /*  LOGER
 
-    AuthRouter.use((req, res, next) => {
+    router.use((req, res, next) => {
     console.log(req.path)
     next()
 }) */
-module.exports = AuthRouter;
+module.exports = router;

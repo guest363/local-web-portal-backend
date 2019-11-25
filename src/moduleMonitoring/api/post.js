@@ -1,4 +1,4 @@
-const pingModel = require("../schems/pingHosts");
+const pingModel = require("../schems/pingModel");
 
 module.exports = async (req, network) => {
     const host = req.body;
