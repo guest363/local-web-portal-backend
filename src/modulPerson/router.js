@@ -1,6 +1,5 @@
 const isAuth = require('../moduleAuth/api');
 
-
 const router = require('express').Router();
 /*  LOGER */
 /* router.use((req, res, next) => {

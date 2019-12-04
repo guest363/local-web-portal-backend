@@ -6,10 +6,13 @@ const personSchema = new Schema({
         type: String,
         uppercase: true,
         trim: true,
-        index: true
+        index: true,
+        required: true
+        
     },
     squad: {
         type: String,
+        required: true
     },
     photo: {
         data: Buffer,

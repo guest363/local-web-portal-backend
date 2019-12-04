@@ -1,8 +1,11 @@
 const pingModel = require("../schems/pingModel");
-const sendResult = require('./sender');
-
+const { DELETE_HOST, DELETE_ERROR } = require('../messages');
 module.exports = (req, network) => {
-    const ip = req.params[0];
+    const ip = req.body.ip;
+    console.log(ip)
     pingModel.findOneAndDelete({ 'ip': ip })
-        .exec((err, result) => sendResult(err, result, network));
+        .exec((error, result) => {
+            if (!result) return network.send(`${DELETE_ERROR} - ${error}`);
+            else return network.send(DELETE_HOST);
+        });
 };

@@ -1,7 +1,7 @@
 const userModel = require("../schems/auth");
 const jwt = require('jsonwebtoken');
 const { jwtsecret } = require('../../variables');
-
+const { ONLY_FOR_AUTH_USER } = require('../errorMsg.js');
 const checkToken = token => {
     return jwt.verify(
         token,
@@ -15,14 +15,14 @@ const checkToken = token => {
 затем только авторизованные могут добавлять */
 module.exports = async (req, network) => {
     const user = req.body;
-    const token = req.header.token;
+    const token = req.header('token');
     const isAnyUserCreate = await userModel.findOne({});
     if (isAnyUserCreate !== null && !checkToken(token)) {
-        return network.send(`Только авторизованные пользователи могут создать нового`);
+        return network.send(ONLY_FOR_AUTH_USER);
     }
     try {
-        await userModel.create(user);
-        network.send(`Создан новый пользователь ${user.login}`);
+        const result = await userModel.create(user);
+        network.send(`Создан новый пользователь ${result.login}`);
     } catch (error) {
         network.send(`Ошибка создания пользователя ${error}`);
     }

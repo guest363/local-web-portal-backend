@@ -6,8 +6,15 @@ const newsSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    header: String,
-    content: String,
+    header: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    content: {
+        type: String,
+        require: true
+    },
     tag: [String]
 });
 /* Важно. Чтобы при выдаче можно было обращаться к виртуальным */

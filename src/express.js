@@ -66,7 +66,10 @@ process.on('SIGINT', function () {
 process.on('SIGTERM', function () {
   processExit();
 });
-const port = process.env.PORT || 3000;
+
+const port = process.env.NODE_ENV.trim() === 'test' ? 3001 : 3000;
 http.listen(port, () => {
   console.log('Express server listening on port %d in %s mode', port, app.get('env'));
 });
+
+module.exports = app; // для тестирования

@@ -11,14 +11,19 @@ const shootSchema = new Schema({
         type: String,
         uppercase: true,
         trim: true,
-        index: true
+        index: true,
+        require: true
     },
     mark: {
         type: Number,
         min: 0,
-        max: 5
+        max: 5,
+        require: true
     },
-    sum: Number,
+    sum: {
+        type: Number,
+        require: true
+    },
     values: [Number],
     x: [Number],
     y: [Number]
@@ -27,9 +32,9 @@ const shootSchema = new Schema({
 shootSchema.set('toObject', { virtuals: true });
 shootSchema.set('toJSON', { virtuals: true });
 /* Querys */
-shootSchema.query.byFIOandDate = function (fio, startDate = new Date(), endDate = Date.now()) {
-    startDate = (startDate === '') ? new Date(2011) : startDate;
-    endDate = (endDate === '') ? new Date : endDate;
+shootSchema.query.byFIOandDate = function (fio, startDate, endDate) {
+    startDate = (!startDate) ? new Date(2011) : startDate;
+    endDate = (!endDate) ? new Date : endDate;
     return this.where({
         'fio': new RegExp(fio, 'i'),
         'day': {

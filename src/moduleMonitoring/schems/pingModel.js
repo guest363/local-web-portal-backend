@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 const pingSchema = new Schema({
     ip: {
         type: String,
-        index: true
+        required: true,
+        unique: true
     },
     name: {
-        type: String
+        type: String,
+        required: true
     },
     online: {
         type: Boolean
