@@ -18,10 +18,9 @@ mongoose.connect(MONGOOSE_URL, {
     useUnifiedTopology: true
 });
 const io = require('socket.io-client');
-const serverName = `192.168.0.3`;
-const serverIP = `${serverName}:3001`;
-const url = `http://${serverIP}`;
-const SOCKET = io(url);
+const FULL_ADDR_TESTS = `${HOST_OR_CONTAINER_NAME}:3001`;
+const URL_TESTS = `http://${FULL_ADDR_TESTS}`;
+const SOCKET = io(URL_TESTS);
 
 module.exports.SOCKET = SOCKET;
 module.exports.mongoose = mongoose;

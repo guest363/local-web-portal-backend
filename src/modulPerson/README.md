@@ -1,10 +1,11 @@
-# Модуль monitoringa
+# Модуль person
+Для хранения списка сотруднико организации.
+Нужнен для занесения результатов стрельб, спорта и так далее.
 
 ## API
-Помним что все апи имеют префикс /api
 
 | Path        | HTTP method | Params | Request Auth | Result |
 | :---------- | :---------- | :----- | :----------- | :----- |
-| ./persons/person | GET | req.query.id | false | получить информацию о людях |
-| ./persons/person | POST | req.body | true | добавить информацию о человеке |
-| ./persons/person | DELETE | req.body | true | удалить информацию о человеке |
+| /api/persons/person | GET | req.query.id | false | получить информацию о людях |
+| /api/persons/person | POST | req.body | true | добавить информацию о человеке |
+| /api/persons/person | DELETE | req.query.id | true | удалить информацию о человеке |

@@ -13,7 +13,7 @@ services:
      - mongo
     links:
       - mongo
-    command: bash -c "cd app/src && node express.js"
+    command: bash -c "cd app/src && npm install && npm run start"
   mongo:
     image: mongo
     volumes:

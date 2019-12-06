@@ -1,11 +1,16 @@
 const isAuth = require('../moduleAuth/api');
 
 const router = require('express').Router();
-router.route('/article/*')
+router.route('/articles')
+    .get(require('./api/article/getAll'))
+    .post(isAuth, require('./api/article/post'));
+
+router.route('/articles/:url')
     .get(require('./api/article/get'))
-    .post(isAuth, require('./api/article/post'))
+    .put(isAuth, require('./api/article/post'))
     .delete(isAuth, require('./api/article/delete'));
 
+    
 router.route('/article-searche')
     .get(require('./api/article/searche'));
 

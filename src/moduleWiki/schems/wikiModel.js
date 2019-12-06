@@ -6,12 +6,21 @@ const wikiSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    header: String,
+    header: {
+        type: String,
+        required: true,
+        unique: true
+    },
     url: {
         type: String,
-        index: true
+        index: true,
+        required: true,
+        unique: true
     },
-    content: String,
+    content: {
+        type: String,
+        required: true
+    },
     tag: [String]
 });
 /* Важно. Чтобы при выдаче можно было обращаться к виртуальным */
@@ -55,5 +64,5 @@ wikiSchema.query.lastAdd = function () {
     return this.findOne().sort({ created_at: -1 });
 }
 /* Model */
-let wikiModel = mongoose.model('wikiModel', wikiSchema, 'wiki');
+const wikiModel = mongoose.model('wikiModel', wikiSchema, 'wiki');
 module.exports = wikiModel;

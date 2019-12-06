@@ -1,7 +1,7 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
-const ping = require('../schems/pingModel.js');
+const pingModel = require('../schems/pingModel.js');
 
 //Подключаем dev-dependencies
 const chai = require('chai');
@@ -24,10 +24,10 @@ const { CREATE_HOST,
 let token;
 //Наш основной блок
 describe('Проверка модуля Мониторин', () => {
-    before((done) => {
-        ping.deleteMany({}, (err) => {
-            done();
-        });
+    before(async () => {
+        await pingModel.deleteMany({});
+        const login = await createUserAndAuth();
+        token = login.userJWT;
     });
     
     describe('Чтение и запись новых хостов', () => {
@@ -49,8 +49,6 @@ describe('Проверка модуля Мониторин', () => {
 
         });
         it('Занести хост дважды с авторизацией', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             const hostPostedResult = await chai.request(server)
                 .post(URL)
                 .set('authorization', `Bearer ${token}`)
@@ -68,11 +66,15 @@ describe('Проверка модуля Мониторин', () => {
         });
 
         it('Получить хосты из не пустой базы', async () => {
-            const hosts = await chai.request(server)
-                .get(URL)
-            hosts.should.have.status(200);
-            hosts.text.should.be.a('string');
-            hosts.text.should.be.match(/ip/);
+            let hosts = await chai.request(server)
+                .get(URL);
+            try {
+                hosts = JSON.parse(hosts.text);
+            } catch (error) {
+                console.error(`Ошибка парсинга JSON - ${error}`)
+            }
+            hosts.should.be.a('array');
+            hosts.should.be.have.length(1);
         });
 
         it('Удалить без авторизации нельзя', async () => {
@@ -103,7 +105,5 @@ describe('Проверка модуля Мониторин', () => {
             hosts.text.should.be.a('string');
             hosts.text.should.have.string(DELETE_HOST);
         }); 
-
-    });
-    
+    });  
 });

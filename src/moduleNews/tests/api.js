@@ -1,7 +1,7 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
-const news = require('../schems/newsModel.js');
+const newsModel = require('../schems/newsModel.js');
 
 //Подключаем dev-dependencies
 const chai = require('chai');
@@ -19,10 +19,10 @@ const { CREATE_NEWS,
     AUTH_ERROR } = require('../messages');
 //Наш основной блок
 describe('Проверка модуля Новостей', () => {
-    before((done) => {
-        news.deleteMany({}, (err) => {
-            done();
-        });
+    before(async () => {
+        await newsModel.deleteMany({});
+        const login = await createUserAndAuth();
+        token = login.userJWT;
     });
     describe('Чтение и запись новостей', () => {
         it('В пустой базе нет новостей -> []', async () => {
@@ -41,8 +41,6 @@ describe('Проверка модуля Новостей', () => {
         });
 
         it('Запись и чтение новости', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             SOCKET.emit("news", {
                 action: "post",
                 msg: NEWS,
@@ -67,8 +65,6 @@ describe('Проверка модуля Новостей', () => {
         });
 
         it('Запись инвалидной новости - событие ERROR', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             SOCKET.emit("news", {
                 action: "post",
                 msg: NEWS_INVALID,
@@ -85,8 +81,6 @@ describe('Проверка модуля Новостей', () => {
         });
 
         it('Запись и удаление новости', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             SOCKET.emit("news", {
                 action: "post",
                 msg: NEWS2,
@@ -121,8 +115,6 @@ describe('Проверка модуля Новостей', () => {
 
 
         it('Удаление не существующей новости - событие ERROR', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             SOCKET.emit("news", {
                 action: "delete",
                 msg: { '_id': 'NONE EXIST' },
@@ -159,7 +151,6 @@ describe('Проверка модуля Новостей', () => {
                 token: 'NONE_EXIST_TOKEN'
             });
 
-
             return new Promise((resolve, reject) => {
                 SOCKET.once('ERROR', error => {
                     error.should.be.a('string');
@@ -169,5 +160,4 @@ describe('Проверка модуля Новостей', () => {
             });
         });
     });
-
 });

@@ -8,12 +8,12 @@ const newsSchema = new Schema({
     },
     header: {
         type: String,
-        require: true,
+        required: true,
         unique: true
     },
     content: {
         type: String,
-        require: true
+        required: true
     },
     tag: [String]
 });

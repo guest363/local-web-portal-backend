@@ -18,16 +18,14 @@ const { CREATE_SHOOT,
     AUTH_ERROR } = require('../messages');
 //Наш основной блок
 describe('Проверка модуля cтрельб', () => {
-    before((done) => {
-        shootModel.deleteMany({}, (err) => {
-            done();
-        });
+    before(async () => {
+        await shootModel.deleteMany({});
+        const login = await createUserAndAuth();
+        token = login.userJWT;
     });
     describe('Чтение и запись результатов стрельб', () => {
 
         it('Запись и чтение результатов стрельбы', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             SOCKET.emit("shoot", {
                 action: "set",
                 msg: SHOOT,
@@ -53,8 +51,6 @@ describe('Проверка модуля cтрельб', () => {
         });
 
         it('Запись некорректных результатов - событие ERROR', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             SOCKET.emit("shoot", {
                 action: "set",
                 msg: SHOOT_INVALID,
@@ -71,8 +67,6 @@ describe('Проверка модуля cтрельб', () => {
         });
 
         it('Запись и удаление результатов стрельбы', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
             SOCKET.emit("shoot", {
                 action: "set",
                 msg: SHOOT2,
@@ -107,9 +101,7 @@ describe('Проверка модуля cтрельб', () => {
         });
 
 
-       it('Удаление не существующих данных - событие ERROR', async () => {
-            const login = await createUserAndAuth();
-            token = login.userJWT;
+        it('Удаление не существующих данных - событие ERROR', async () => {
             SOCKET.emit("shoot", {
                 action: "delete",
                 msg: { 'id': 'NONE EXIST' },
@@ -146,7 +138,6 @@ describe('Проверка модуля cтрельб', () => {
                 token: 'NONE_EXIST_TOKEN'
             });
 
-
             return new Promise((resolve, reject) => {
                 SOCKET.once('ERROR', error => {
                     error.should.be.a('string');
@@ -155,7 +146,5 @@ describe('Проверка модуля cтрельб', () => {
                 });
             });
         });
-
     });
-
 });

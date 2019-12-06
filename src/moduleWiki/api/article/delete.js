@@ -1,14 +1,14 @@
 const wikiModel = require("../../schems/wikiModel");
-
+const { DELETE_WIKI, DELETE_ERROR } = require('../../messages');
 module.exports = async (req, network) => {
-    const id = req.params[0];
-    wikiModel.findOneAndDelete({ '_id': id })
+    const id = req.params.url;
+    wikiModel.findOneAndDelete({ 'url': id })
         .exec((err, result) => {
             if (err) {
-                return network.send(`Ошибка при удалении статьи - ${err}`);
+                return network.send(`${DELETE_ERROR} - ${err}`);
 
             } else {
-                return network.send(`Удалена статья - ${result.header}`);
+                return network.send(`${DELETE_WIKI} - ${result.header}`);
             }
         });
 }

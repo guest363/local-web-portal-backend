@@ -1,0 +1,33 @@
+const CREATE_WIKI = `Добавлена статья википедии`,
+    UPDATE_WIKI = `Обновлена статья википедии`,
+    DELETE_WIKI = `Удалена статья википедии`,
+    POST_ERROR = `Ошибка записи в таблицу википедии`,
+    DELETE_ERROR = `Ошибка удаления из таблицы википедии`,
+    SEARCHE_ERROR = `Ошибка при поиске статьи`,
+    COUNT_ERROR = `Ошибка при поиске статьи`,
+    GET_ERROR = `Ошибка получения данных из таблицы википедии`,
+    DELETE_TAG = `Тег удален успешно`,
+    DELETE_TAG_ERROR = `Ошибка при удалении тега`,
+    GET_TAG = `Ошибка получения списка тегов`,
+    POST_TAG = `Создан новый тег`,
+    POST_TAG_ERROR = `Ошибка записи тега`,
+    POST_TAG_ERROR_HAVE = `Такой тег уже существует`,
+    AUTH_ERROR = `Только авторизованные пользователи`;
+
+module.exports = {
+    CREATE_WIKI,
+    UPDATE_WIKI,
+    DELETE_WIKI,
+    POST_ERROR,
+    DELETE_ERROR,
+    SEARCHE_ERROR,
+    COUNT_ERROR,
+    GET_ERROR,
+    DELETE_TAG,
+    DELETE_TAG_ERROR,
+    GET_TAG,
+    POST_TAG,
+    POST_TAG_ERROR,
+    POST_TAG_ERROR_HAVE,
+    AUTH_ERROR
+}

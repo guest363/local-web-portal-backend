@@ -12,17 +12,17 @@ const shootSchema = new Schema({
         uppercase: true,
         trim: true,
         index: true,
-        require: true
+        required: true
     },
     mark: {
         type: Number,
         min: 0,
         max: 5,
-        require: true
+        required: true
     },
     sum: {
         type: Number,
-        require: true
+        required: true
     },
     values: [Number],
     x: [Number],
