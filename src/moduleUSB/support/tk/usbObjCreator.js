@@ -1,4 +1,6 @@
 const usbObjCreator = usb => {
+    const username = (!usb.username) ? '' : usb.username.substr(0, 30);
+
     return {
         'mountTime': new Date().toLocaleString("ru"),
         'hostid': usb.hostid,
@@ -7,7 +9,7 @@ const usbObjCreator = usb => {
         'manufacture': usb.manufacture,
         'serial': usb.serial,
         'USBnameSave': usb.serial,
-        'username': usb.username.substr(0, 30),
+        'username': username,
         'regNumber': 'Внесите регистрационный номер',
         'docNumber': 'Внесите номер предписания'
     }

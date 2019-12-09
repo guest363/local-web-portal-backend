@@ -56,6 +56,7 @@ describe('Проверка модуля Мониторин', () => {
             hostPostedResult.should.have.status(200);
             hostPostedResult.text.should.be.a('string');
             hostPostedResult.text.should.have.string(CREATE_HOST);
+            
             const hostPostedResult_Update = await chai.request(server)
                 .post(URL)
                 .set('authorization', `Bearer ${token}`)

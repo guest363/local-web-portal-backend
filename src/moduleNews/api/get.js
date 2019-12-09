@@ -1,12 +1,10 @@
 const newsModel = require("../schems/newsModel");
 
-module.exports = (msg, socket) => {
-    newsModel.find()
-        .byID(msg)
-        .exec(
-            function (err, result) {
-                if (err) return socket.emit('ERROR', err);
-                return socket.emit('RETURN_NEWS', result);
-            }
-        )
+module.exports = async (msg, socket) => {
+    try {
+        const result = await newsModel.find().byID(msg);
+        return socket.emit('RETURN_NEWS', result);
+    } catch (error) {
+        return socket.emit('ERROR', error);
+    }
 }

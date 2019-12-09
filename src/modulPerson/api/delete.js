@@ -1,14 +1,11 @@
 const personModel = require("../schems/personModel");
 const { DELETE_PERSON, DELETE_ERROR } = require('../messages');
-module.exports = (req, network) => {
+module.exports = async (req, network) => {
     const id = req.query.id;
-    personModel.findOneAndDelete({ '_id': id })
-        .exec((error, result) => {
-            if (error) {
-                network.send(`${DELETE_ERROR} - ${error}`);
-
-            } else {
-                network.send(DELETE_PERSON);
-            }
-        });
+    try {
+        await personModel.findOneAndDelete({ '_id': id });
+        return network.send(DELETE_PERSON);
+    } catch (error) {
+        return network.send(`${DELETE_ERROR} - ${error}`);
+    }
 };

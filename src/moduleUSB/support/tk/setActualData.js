@@ -6,15 +6,15 @@
      * Названию устройства
      * Так как данные значения виртуальны и не передаются фактически при
      * монтировании
-     * @param {Link} witeDb - ссылка на базу с белым списком, как хранилище истины для данных USB
+     * @param {Link} whiteDb - ссылка на базу с белым списком, как хранилище истины для данных USB
      * @param {Object} usb - обьект USB для записи в базу
      * @param {Object} query - запрос для поиска по серийному номеру
      * @returns {Object} возвращает новый нормализованный обьект
      */
-const setActualData = async (witeDb, usb, query) => {
+const setActualData = async (whiteDb, usb, query) => {
     const usbCopy = Object.assign({}, usb);
     try {
-        const result = await witeDb.find(query);
+        const result = await whiteDb.find(query);
         if (result.length !== 0) {
             usbCopy.regNumber = result[0].regNumber;
             usbCopy.docNumber = result[0].docNumber;

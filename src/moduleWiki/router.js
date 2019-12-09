@@ -10,15 +10,17 @@ router.route('/articles/:url')
     .put(isAuth, require('./api/article/post'))
     .delete(isAuth, require('./api/article/delete'));
 
-    
+
 router.route('/article-searche')
     .get(require('./api/article/searche'));
 
 router.route('/tag')
     .get(require('./api/tag/get'))
-    .post(isAuth, require('./api/tag/post'))
-    .delete(isAuth, require('./api/tag/delete'));
+    .post(isAuth, require('./api/tag/post'));
 
+router.route('/tag/:tag')
+    .delete(isAuth, require('./api/tag/delete'));
+    
 router.route('/countByTag')
     .get(require('./api/coutn/byTag'));
 

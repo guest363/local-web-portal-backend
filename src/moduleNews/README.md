@@ -11,3 +11,21 @@
 | news  | { action: "post", msg: news, token: '' } | true | добавить новость |
 | news  |  { action: "delete", msg: id, token: '' } | true | удалить новость |
 | news  |  { action: "getAll"} | false | получить все новости |
+
+
+## Формат данных
+
+    date: {
+        type: Date,
+        default: Date.now()
+    },
+    header: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    tag: [String]

@@ -1,3 +1,10 @@
+/**
+ * Бьет таблицу на куски
+ * @param {Array} usbArray массив который нужно разбить
+ * @param {Number} chunkNumber номер куска для отправки
+ * @param {String} filterParam по какому полю фильтровать
+ * @returns {Object} { chunk: Array, pages: Number }
+ */
 const chunker = (usbArray, chunkNumber, filterParam) => {
     if (usbArray === void 0) return [{}];
     const init = usbArray[0];
@@ -10,7 +17,7 @@ const chunker = (usbArray, chunkNumber, filterParam) => {
             return acc
         }
         return [...acc, item];
-    }, [init])
+    }, [init]);
     const chunks = [];
     let allElements;
     if (filterParam === 'none') {
@@ -34,6 +41,6 @@ const chunker = (usbArray, chunkNumber, filterParam) => {
         }
         chunks.push(elemChunck);
     }
-    return { chunk: chunks[chunkNumber], pages: chunks.length};
+    return { chunk: chunks[chunkNumber], pages: chunks.length };
 }
 module.exports = chunker;

@@ -17,7 +17,9 @@ const usbSchema = new Schema({
         type: String,
         required: true
     },
-    USBnameSave: String,
+    USBnameSave: {
+        type: String
+    },
     username: String,
     regNumber: {
         type: String,

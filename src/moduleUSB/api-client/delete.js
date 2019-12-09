@@ -8,20 +8,21 @@ const tablesLinker = {
     'mountUSB': mountModel
 };
 const ObjectId = require('mongodb').ObjectId;
-
-module.exports = async (req, socket, token, authErrorMsg) => {
-    const { msg, table } = req;
+const { DELETE_USB, DELETE_ERROR, AUTH_ERROR } = require('../messages');
+module.exports = async (req, socket, token) => {
     const authResult = await socketAuth(token);
     if (!authResult) {
-        return socket.emit('ERROR', authErrorMsg);
+        return socket.emit('ERROR', AUTH_ERROR);
     }
-
-    /* Динамическая ссылка на коллекции */
-    const collection = tablesLinker[table];
-    /* Так как накосячил и в белый список _id это просто строка */
-    const id = (table === 'whiteListUSB') ? msg : ObjectId(msg);
-    collection.findOneAndDelete({ '_id': id }, (err, result) => {
-        if (err) return socket.emit('ERROR', err);
-        socket.emit('RESULT', 'Носитель удален из базы');
-    })
+    try {
+        const { msg, table } = req;
+        /* Динамическая ссылка на коллекции */
+        const collection = tablesLinker[table];
+        /* Так как накосячил и в белый список _id это просто строка */
+        const id = (table === 'whiteListUSB') ? msg : ObjectId(msg);
+        await collection.findOneAndDelete({ '_id': id });
+        return socket.emit('RESULT', DELETE_USB);
+    } catch (error) {
+        return socket.emit('ERROR', `${DELETE_ERROR} - ${error}`);
+    }
 }

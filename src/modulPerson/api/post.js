@@ -4,8 +4,8 @@ const { CREATE_PERSON, UPDATE_PERSON, POST_ERROR } = require('../messages');
 module.exports = async (req, network) => {
     const person = req.body;
     const query = { '_id': person['_id'] };
-    const doc = await personModel.findOne(query);
     try {
+        const doc = await personModel.findOne(query);
         if (doc === null) {
             await new personModel(person).save();
             network.send(CREATE_PERSON);

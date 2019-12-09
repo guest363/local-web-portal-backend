@@ -16,4 +16,36 @@
 | /api/wiki/article-searche | GET | req.query = {tag: [], content: ''} | false | возвращает статью найденную по тегу и содержанию |
 | /api/wiki/tag | GET | req.query = {tag: [], content: ''} | false | возвращает все теги |
 | /api/wiki/tag | POST | req.body | true | заносит новый тег |
-| /api/wiki/tag | DELETE | req.params[0] | true | удаляет тег |
+| /api/wiki/tag | DELETE | req.params.tag | true | удаляет тег |
+
+
+## Форматы
+### Статья Вики
+    date: {
+        type: Date,
+        default: Date.now()
+    },
+    header: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    url: {
+        type: String,
+        index: true,
+        required: true,
+        unique: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    tag: [String]
+### Тег Вики
+    tag: {
+        type: String,
+        required: true,
+        unique: true,
+        index: true,
+        uppercase: true
+    }

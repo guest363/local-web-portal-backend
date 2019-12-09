@@ -7,11 +7,11 @@ module.exports = async (msg, socket, token, authErrorMsg) => {
     if (!authResult) {
         return socket.emit('RESULT', authErrorMsg);
     }
-    newsModel.findOneAndDelete({ '_id': msg })
-        .exec((err, result) => {
-            if (err) return socket.emit('ERROR', `${DELETE_ERROR} - ${err}`);
-            socket.emit('RESULT', DELETE_NEWS);
-            /* Обновить список новостей на клиентах. */
-            return broadcastUpdate(socket);
-        })
+    try {
+        await newsModel.findOneAndDelete({ '_id': msg });
+        socket.emit('RESULT', DELETE_NEWS);
+        return broadcastUpdate(socket);
+    } catch (error) {
+        socket.emit('ERROR', `${DELETE_ERROR} - ${error}`);
+    }
 }

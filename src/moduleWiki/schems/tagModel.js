@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 const wikiTagSchema = new Schema({
     tag: {
         type: String,
-        require: true
+        required: true,
+        unique: true,
+        index: true,
+        uppercase: true
     }
 });
 

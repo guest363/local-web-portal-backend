@@ -11,7 +11,7 @@ const writeToMountTable = require('../support/tk/writeToMountTable');
 
 async function usbTkActions(msg, res, io) {
     // Устройства без серийного номера не попадают в БД
-    if (msg.serial === '') return res.send(`true`);
+    if (!msg.serial) return res.send(`true`);
     // Если действия отмонтировать USB то короткий путь
     if (msg.event === 'inject') return await enjectUSB(mountModel, msg, io, res);
 

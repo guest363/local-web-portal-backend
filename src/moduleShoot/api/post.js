@@ -6,9 +6,11 @@ module.exports = async (msg, socket, token) => {
     if (!authResult) {
         return socket.emit('ERROR', AUTH_ERROR);
     }
-    const instans = new shootModel(msg);
-    instans.save((err, result) => {
-        if (err) return socket.emit('ERROR', `${POST_ERROR} - ${err}`);
+    try {
+        const instans = new shootModel(msg);
+        await instans.save();
         return socket.emit('RESULT', CREATE_SHOOT);
-    });
+    } catch (error) {
+        return socket.emit('ERROR', `${POST_ERROR} - ${error}`);
+    }
 };

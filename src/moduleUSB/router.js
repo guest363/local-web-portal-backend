@@ -11,8 +11,6 @@ const tablesLinker = {
 function router(req, socket) {
     const { action = '', token = '', table = '' } = req;
     if (!tablesLinker.hasOwnProperty(table)) return socket.emit('ERROR', 'В какой таблице действия?');
-
-    const authErrorMsg = `Только авторизованные пользователи могут совершать это действие`;
     const actions = {
         get: require('./api-client/get'),
         addToWhite: require('./api-client/addToWhite'),
@@ -21,7 +19,7 @@ function router(req, socket) {
     };
     if (!actions.hasOwnProperty(action))
         return socket.emit('ERROR', 'Такого метогда взаимодействия с новостями не существует!');
-    return actions[action](req, socket, token, authErrorMsg);
+    return actions[action](req, socket, token);
 }
 
 module.exports = router;

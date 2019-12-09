@@ -14,13 +14,13 @@ const checkToken = token => {
 /* Создать без пароля можно только первого пользователя
 затем только авторизованные могут добавлять */
 module.exports = async (req, network) => {
-    const user = req.body;
-    const token = req.header('token');
-    const isAnyUserCreate = await userModel.findOne({});
-    if (isAnyUserCreate !== null && !checkToken(token)) {
-        return network.send(ONLY_FOR_AUTH_USER);
-    }
     try {
+        const user = req.body;
+        const token = req.header('token');
+        const isAnyUserCreate = await userModel.findOne({});
+        if (isAnyUserCreate !== null && !checkToken(token)) {
+            return network.send(ONLY_FOR_AUTH_USER);
+        }
         const result = await userModel.create(user);
         network.send(`Создан новый пользователь ${result.login}`);
     } catch (error) {

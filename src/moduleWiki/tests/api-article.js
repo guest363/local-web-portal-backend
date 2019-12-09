@@ -19,6 +19,7 @@ const { CREATE_WIKI,
     DELETE_WIKI,
     POST_ERROR,
     DELETE_ERROR,
+    DELETE_ERROR_NULL,
     SEARCHE_ERROR,
     COUNT_ERROR,
     GET_ERROR,
@@ -94,6 +95,13 @@ describe('Проверка модуля Википедии - работа со �
             wikiDeleteResult.text.should.be.a('string');
             wikiDeleteResult.text.should.have.string(DELETE_WIKI);
         });
+        it('Удалить статью которой нет - ошибка', async () => {
+            const wikiDeleteResult = await chai.request(server)
+                .delete(`${URL}\\xhref`)
+                .set('authorization', `Bearer ${token}`);
+            wikiDeleteResult.should.have.status(200);
+            wikiDeleteResult.text.should.be.a('string');
+            wikiDeleteResult.text.should.have.string(DELETE_ERROR_NULL);
+        });
     });
-
 });
